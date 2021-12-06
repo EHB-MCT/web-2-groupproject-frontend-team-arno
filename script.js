@@ -1,18 +1,34 @@
-button();
+"use strict"
 
+window.onload = function () {
+    Challenges();
 
-function button() {
-
-    document.getElementById('challenge_button').addEventListener("click", lol);
-
+    document.getElementById('form').addEventListener('submit', e => {
+        e.preventDefault();
+    })
 }
 
-function lol() {
-    fetch(``)
-        .then(response => {
-            return response.json();
-        })
-        .then(data => {
+function Challenges() {
+    fetch('https://web2-groupproject-backend.herokuapp.com/challenges')
+        .then(response => response.json())
+        .then(function (data) {
             console.log(data);
+            let htmlString = ""
+
+            data.forEach(element => {
+                htmlString += `
+                <div class="card">
+                <h5 class="card-title">${element.name}</h5>
+                <div class="card-body">
+                <p class="card-text">${element.points}</p>
+                <p class="card-text">${element.course}</p>
+                <p class="card-text">${element.session}</p>
+                </div>
+                </div>`;
+                
+                console.log(htmlString)
+
+            })
+            document.getElementById("listblock").insertAdjacentHTML('beforeend', htmlString)
         });
-}
+    }
