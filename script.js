@@ -30,7 +30,6 @@ function Challenges() {
                 </div>
                 </div>`;
                 
-                console.log(htmlString)
 
             })
             document.getElementById("listblock").insertAdjacentHTML('beforeend', htmlString)
@@ -40,18 +39,22 @@ function Challenges() {
     async function saveChallenges(){
 
             const data = JSON.stringify({
-        "name": document.getElementById('name').value,
-        "points": document.getElementById('points').value,
-        "course": document.getElementById('course').value,
-        "session": document.getElementById('session').value
-        })
+        name: document.getElementById('name').value,
+        points: document.getElementById('points').value,
+        course: document.getElementById('course').value,
+        session: document.getElementById('session').value
+        });
+
             fetch(url+"/challenge", {
                     method: 'POST',
+                    headers:{
+                        'Content-Type':'application/json'
+                    },
                     body: data
                 })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data.json());
+                    console.log(data);
                 });
         await Challenges();
 
